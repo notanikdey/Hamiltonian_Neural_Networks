@@ -12,7 +12,7 @@ class BaselineMLP(nn.Module):
        for l in [self.layer_1, self.layer_2, self.layer_3]:
            nn.init.orthogonal_(l.weight)
        
-       def forward(self, x):
+    def forward(self, x):
            h = self.tanh(self.layer_1(x))
            h = self.tanh(self.layer_2(h))
 
