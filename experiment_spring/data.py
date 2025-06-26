@@ -53,7 +53,7 @@ def trajectory(t_span=[0,3], timescale=10, radius=None, y0=None, noise_std=0.1, 
     return q, p, dqdt, dpdt, t_eval 
 
 
-def get_dataset(seed=0, samples=50, test_split=0.5, **kwargs):
+def get_dataset(seed, samples=50, test_split=0.5, **kwargs):
     data = {'meta':locals()} 
 
     #randomly sampling inputs 
@@ -71,7 +71,7 @@ def get_dataset(seed=0, samples=50, test_split=0.5, **kwargs):
     split_ix = int(len(data['x'])*test_split)
     split_data = {}
     for k in ['x', 'dx']:
-        split_data[k], split_data['test_'+k] = data[k][:split_ix], data[k][split_ix:]
+        split_data['train_'+k], split_data['test_'+k] = data[k][:split_ix], data[k][split_ix:]
     data = split_data
     return data 
 
