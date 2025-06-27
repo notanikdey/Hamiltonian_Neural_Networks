@@ -26,9 +26,8 @@ class HNN(nn.Module):
         assert y.dim()==2 and y.shape[1] == 2, "Ouput should be [batch_size, 2]"
         return y.split(1,1)
         
-    def rk4_time_derivative(self, x, dt):
-        return rk4(fun=self.time_derivative, y0=x, t=0, dt=dt)
-
+    def rk4_time_derivative(self, x, h):
+        return rk4(fun=self.time_derivative, y0=x, t=0, h=h)
     #Core HNN function 
     def time_derivative(self, x, t=None, separate_fields=False):
         #Takes in a batch of inputs x = (q,p) and returns the time derivative vector field z' 

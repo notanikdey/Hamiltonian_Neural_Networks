@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 
 def hamiltonian(coords):
     q , p = np.split(coords, 2)
-    #for an ideal mass-spring system, the hamiltonian is given by H = 1/2*k*q^2 + 1/(2m)*p^2
-    H = (p**2 + q**2) #Acc to the code on the paper's repo
+    #for an ideal pendulum system, the hamiltonian is given by H = 2mgl(1-cos(q)) + (l^2*p^2)/2m
+    H = 3*(1-np.cos(q)) + p**2 #Acc to the code on the paper's repo
     return H 
 
 def dynamics(t, coords):
@@ -90,26 +90,3 @@ def get_field(xmin=-1.2, xmax=1.2, ymin=-1.2, ymax=1.2, gridsize=20):
     field['dx'] = dydt 
 
     return field 
-
-# #Testing
-# field = get_field()
-
-# # Plot vector field using quiver
-# plt.figure(figsize=(6, 6))
-# plt.quiver(
-#     field['x'][:, 0],  # q (x-axis)
-#     field['x'][:, 1],  # p (y-axis)
-#     field['dx'][:, 0], # dq/dt
-#     field['dx'][:, 1], # dp/dt
-#     color='blue',
-#     angles='xy', scale_units='xy', scale=1
-# )
-
-# plt.xlabel('q')
-# plt.ylabel('p')
-# plt.title('Phase Space Vector Field')
-# plt.grid(True)
-# plt.axis('equal')
-# plt.show()
-
-
