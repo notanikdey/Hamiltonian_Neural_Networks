@@ -28,7 +28,7 @@ def trajectory(t_span=[0,3], timescale=10, radius=None, y0=None, noise_std=0.1, 
     if y0 is None:
         y0 = np.random.rand(2)*2-1 #samples between -1 and 1
     if radius is None:
-        radius = np.random.rand()*0.9 + 0.1 
+        radius = np.random.rand() + 1.3 #sampling a range of radii
     y0 = y0/np.linalg.norm(y0) * radius 
     # In Hamiltonian systems where:
     #     H(q, p) = q^2 + p^2
@@ -80,13 +80,13 @@ def get_field(xmin=-1.2, xmax=1.2, ymin=-1.2, ymax=1.2, gridsize=20):
 
     #meshgrid to get vector field 
     b, a = np.meshgrid(np.linspace(xmin, xmax, gridsize), np.linspace(ymin, ymax, gridsize))
-    ys = np.stack([b.flatten(), a.flatten()], axis=1)
+    ys = np.stack([b.flatten(), a.flatten()])
 
     #get vector directions 
-    dydt = [dynamics(None, y) for y in ys]
-    dydt = np.stack(dydt, axis=0)
+    dydt = [dynamics(None, y) for y in ys.T]
+    dydt = np.stack(dydt).T
 
-    field['x'] = ys
-    field['dx'] = dydt 
+    field['x'] = ys.T
+    field['dx'] = dydt.T
 
     return field 

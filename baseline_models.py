@@ -18,9 +18,7 @@ class BaselineMLP(nn.Module):
            h = self.tanh(self.layer_2(h))
 
            return self.layer_3(h)
-       
 
-           
 
 
         
