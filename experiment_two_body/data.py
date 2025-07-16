@@ -34,7 +34,7 @@ def get_accelerations(state, epsilon=0):
     #shape of state is [bodies x properties]
     net_accs = [] # [nbodies x 2]
     for i in range(state.shape[0]): #number of bodies 
-        other_bodies = np.concatenate([state[:i, :], state[i+1, :]], axi=0)
+        other_bodies = np.concatenate([state[:i, :], state[i+1:, :]], axis=0)
         displacements = other_bodies[:,1:3] - state[i, 1:3] # indexes 1:3 -> pxs, pys
         distances = (displacements**2).sum(1, keepdims=True)**0.5 
         masses = other_bodies[:, 0:1] #index 0 -> mass 
